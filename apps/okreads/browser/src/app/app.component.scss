@@ -20,6 +20,10 @@ h1 {
 
   button {
     padding: 0 $spacing-xs;
+    .mat-button-wrapper-inner {
+      font-weight: bold;
+      font-size: 19px;
+    }
   }
 }
 
