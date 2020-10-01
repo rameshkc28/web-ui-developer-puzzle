@@ -10,6 +10,7 @@ import {
 import { FormBuilder } from '@angular/forms';
 import { Book } from '@tmo/shared/models';
 import { Observable } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'tmo-book-search',
@@ -35,6 +36,14 @@ export class BookSearchComponent implements OnInit {
   ngOnInit(): void {
     // converted the component subscription to the template subscription with async pipe
     this.books$ = this.store.select(getAllBooks);
+
+    // getting the updated input changes and passing the latest searched item
+    this.searchForm.valueChanges.pipe(debounceTime(500)).subscribe(searchedItem => {
+      // making sure search input has something to make a call
+      if(searchedItem.term) {
+        this.store.dispatch(searchBooks({ term: searchedItem.term }));
+      }
+    });
   }
 
   formatDate(date: void | string) {
