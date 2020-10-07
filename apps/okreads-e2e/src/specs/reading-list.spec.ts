@@ -28,10 +28,9 @@ describe('When: I use the reading list feature', () => {
     const input = await $('input[type="search"]');
     await input.sendKeys('phython');
     await form.submit();
-    await browser.wait(ExpectedConditions.elementToBeClickable(element(by.buttonText('Want to Read')))).then(() =>
-    {
-      element(by.buttonText('Want to Read')).click();
-    })
+
+    const wantToReadButton = element.all(by.buttonText('Want to Read'));
+    await wantToReadButton.get(0).click();
 
     const items = await $$('[data-testing="book-item"]');
     
