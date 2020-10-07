@@ -39,7 +39,7 @@
               [disabled]="b.isAdded"
               [attr.aria-label]="'Select Book'"
             >
-              Want to Read
+              {{ b?.finished ? 'Finished' : 'Want to Read' }}
             </button>
           </div>
         </div>
