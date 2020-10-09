@@ -26,7 +26,7 @@ describe('When: I use the reading list feature', () => {
 
     const form = await $('form');
     const input = await $('input[type="search"]');
-    await input.sendKeys('phython');
+    await input.sendKeys('python');
     await form.submit();
 
     const wantToReadButton = element.all(by.buttonText('Want to Read'));
@@ -43,12 +43,11 @@ describe('When: I use the reading list feature', () => {
     const readingListitemsLength = readingListitems.length;
     const removeListButton = await $('[data-testing="remove-list-button"]');
     await removeListButton.click();
-    await browser.wait(ExpectedConditions.elementToBeClickable(element(by.buttonText('Undo')))).then(() =>
-    {
-      element(by.buttonText('Undo')).click();
-    })
+    await browser.executeScript("return await document.querySelector('.mat-simple-snackbar-action')").
+    then((snackBarButton: HTMLElement)=>{
+      snackBarButton.click();
+    });
     readingListitems = await $$('[data-testing="reading-list-item"]');
     expect(readingListitems.length).toEqual(readingListitemsLength);
-
   });
 });
