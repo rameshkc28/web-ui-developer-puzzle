@@ -19,4 +19,10 @@ export class ReadingListComponent {
   markAsFinishedReadingFromList(item) {
     this.store.dispatch(markAsFinishedReadingFromList({ item : {...item, finished: true, finishedDate: (new Date()).toISOString()} }));
   }
+
+  formatDate(date: void | string) {
+    return date
+      ? new Intl.DateTimeFormat('en-US').format(new Date(date))
+      : undefined;
+  }
 }
